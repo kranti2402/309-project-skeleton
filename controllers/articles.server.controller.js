@@ -39,14 +39,15 @@ module.exports.create = function(req, res) {
   article.save(function(err, data) {
     if (err) {
       return res.status(400).send({
-
-  				message: errorHandler.getErrorMessage(err)
-  			});
+           message: errorHandler.getErrorMessage(err)
+         });
     } else {
       res.status(200).send(data);
     }
   });
 };
+
+
 
 module.exports.read = function(req, res) {
   res.json(req.article);
@@ -87,3 +88,23 @@ exports.articleByID = function(req, res, next, id) {
 		next();
 	});
 };
+module.exports.single = function(req, res) {
+   res.render('./../public/views/article/view.ejs', {
+          user: req.user || null,
+          article: req.article
+    });
+};
+
+module.exports.new = function(req, res){
+  res.render('./../public/views/article/new.ejs', {
+          user: req.user || null,
+          request: req
+        });
+};
+module.exports.edit = function(req, res) {
+    res.render('./../public/views/article/edit.ejs', {
+        user: req.user || null,
+        article: req.article
+    });
+};
+
